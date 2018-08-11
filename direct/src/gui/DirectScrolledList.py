@@ -105,7 +105,7 @@ class DirectScrolledList(DirectFrame):
                                               DirectFrame, (self,),
                                               )
         for item in self["items"]:
-            if item.__class__.__name__ != 'str':
+            if not isinstance(item, str) and not isinstance(item, bytes):
                 item.reparentTo(self.itemFrame)
 
         self.initialiseoptions(DirectScrolledList)
@@ -237,7 +237,7 @@ class DirectScrolledList(DirectFrame):
 
         # Hide them all
         for item in self["items"]:
-            if item.__class__.__name__ != 'str':
+            if not isinstance(item, str) and not isinstance(item, bytes):
                 item.hide()
 
         # Then show the ones in range, and stack their positions
@@ -247,7 +247,7 @@ class DirectScrolledList(DirectFrame):
             #print "stacking buttontext[", i,"]", self["items"][i]["text"]
             # If the item is a 'str', then it has not been created (scrolled list is 'as needed')
             #  Therefore, use the the function given to make it or just make it a frame
-            if item.__class__.__name__ == 'str':
+            if isinstance(item, str) or isinstance(item, bytes):
                 if self['itemMakeFunction']:
                     # If there is a function to create the item
                     item = self['itemMakeFunction'](item, i, self['itemMakeExtraArgs'])
