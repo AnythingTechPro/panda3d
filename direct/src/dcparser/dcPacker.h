@@ -125,6 +125,7 @@ PUBLISHED:
   INLINE vector_uchar get_bytes() const;
   INLINE size_t get_unpack_length() const;
   INLINE std::string get_unpack_string() const;
+
 public:
   INLINE void get_string(std::string &data) const;
   INLINE const char *get_data() const;
