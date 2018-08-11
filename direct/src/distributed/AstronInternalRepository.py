@@ -209,7 +209,7 @@ class AstronInternalRepository(ConnectionRepository):
         dg2 = PyDatagram()
         dg2.addServerControlHeader(CONTROL_ADD_POST_REMOVE)
         dg2.addUint64(self.ourChannel)
-        dg2.addString(str(bytes(dg)))
+        dg2.appendData(bytes(dg))
         self.send(dg2)
 
     def clearPostRemove(self):
