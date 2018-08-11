@@ -35,7 +35,7 @@ DCTypedef(DCParameter *parameter, bool implicit) :
  * Creates a bogus typedef reference.
  */
 DCTypedef::
-DCTypedef(const string &name) :
+DCTypedef(const std::string &name) :
   _parameter(new DCSimpleParameter(ST_invalid)),
   _bogus_typedef(true),
   _implicit_typedef(false),
@@ -64,7 +64,7 @@ get_number() const {
 /**
  * Returns the name of this typedef.
  */
-const string &DCTypedef::
+const std::string &DCTypedef::
 get_name() const {
   return _parameter->get_name();
 }

@@ -166,7 +166,7 @@ read(Filename filename) {
  * (in which case the file might have been partially read).
  */
 bool DCFile::
-read(std::istream &in, const string &filename) {
+read(std::istream &in, const std::string &filename) {
   cerr << "DCFile::read of " << filename << "\n";
   dc_init_parser(in, filename, *this);
   dcyyparse();
@@ -259,7 +259,7 @@ get_class(int n) const {
  * class.
  */
 DCClass *DCFile::
-get_class_by_name(const string &name) const {
+get_class_by_name(const std::string &name) const {
   ThingsByName::const_iterator ni;
   ni = _things_by_name.find(name);
   if (ni != _things_by_name.end()) {
@@ -274,7 +274,7 @@ get_class_by_name(const string &name) const {
  * switch.
  */
 DCSwitch *DCFile::
-get_switch_by_name(const string &name) const {
+get_switch_by_name(const std::string &name) const {
   ThingsByName::const_iterator ni;
   ni = _things_by_name.find(name);
   if (ni != _things_by_name.end()) {
@@ -364,7 +364,7 @@ get_typedef(int n) const {
  * such typedef name.
  */
 DCTypedef *DCFile::
-get_typedef_by_name(const string &name) const {
+get_typedef_by_name(const std::string &name) const {
   TypedefsByName::const_iterator ni;
   ni = _typedefs_by_name.find(name);
   if (ni != _typedefs_by_name.end()) {
@@ -395,7 +395,7 @@ get_keyword(int n) const {
  * such keyword name.
  */
 const DCKeyword *DCFile::
-get_keyword_by_name(const string &name) const {
+get_keyword_by_name(const std::string &name) const {
   const DCKeyword *keyword = _keywords.get_keyword_by_name(name);
   if (keyword == nullptr) {
     keyword = _default_keywords.get_keyword_by_name(name);
@@ -506,7 +506,7 @@ add_switch(DCSwitch *dswitch) {
  * class interfaces named within the .dc file.
  */
 void DCFile::
-add_import_module(const string &import_module) {
+add_import_module(const std::string &import_module) {
   Import import;
   import._module = import_module;
   _imports.push_back(import);
@@ -519,7 +519,7 @@ add_import_module(const string &import_module) {
  * "import module_name".
  */
 void DCFile::
-add_import_symbol(const string &import_symbol) {
+add_import_symbol(const std::string &import_symbol) {
   nassertv(!_imports.empty());
   _imports.back()._symbols.push_back(import_symbol);
 }
@@ -561,7 +561,7 @@ add_typedef(DCTypedef *dtypedef) {
  * to add a particular keyword more than once.
  */
 bool DCFile::
-add_keyword(const string &name) {
+add_keyword(const std::string &name) {
   DCKeyword *keyword = new DCKeyword(name);
   bool added = _keywords.add_keyword(keyword);
 

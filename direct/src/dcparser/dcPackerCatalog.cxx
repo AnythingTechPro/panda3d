@@ -60,7 +60,7 @@ DCPackerCatalog::
  * get_entry().
  */
 int DCPackerCatalog::
-find_entry_by_name(const string &name) const {
+find_entry_by_name(const std::string &name) const {
   EntriesByName::const_iterator ni;
   ni = _entries_by_name.find(name);
   if (ni != _entries_by_name.end()) {
@@ -152,7 +152,7 @@ release_live_catalog(const DCPackerCatalog::LiveCatalog *live_catalog) const {
  * to the catalog.
  */
 void DCPackerCatalog::
-add_entry(const string &name, const DCPackerInterface *field,
+add_entry(const std::string &name, const DCPackerInterface *field,
           const DCPackerInterface *parent, int field_index) {
   Entry entry;
   entry._name = name;
@@ -186,7 +186,7 @@ add_entry(const string &name, const DCPackerInterface *field,
  * a catalog after a DCSwitch node is selected.
  */
 void DCPackerCatalog::
-r_fill_catalog(const string &name_prefix, const DCPackerInterface *field,
+r_fill_catalog(const std::string &name_prefix, const DCPackerInterface *field,
                const DCPackerInterface *parent, int field_index) {
   string next_name_prefix = name_prefix;
 

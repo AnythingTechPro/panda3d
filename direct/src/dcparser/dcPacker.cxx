@@ -267,7 +267,7 @@ end_repack() {
  * packer is in an invalid mode).
  */
 bool DCPacker::
-seek(const string &field_name) {
+seek(const std::string &field_name) {
   if (_catalog == nullptr) {
     _catalog = _root->get_catalog();
     _live_catalog = _catalog->get_live_catalog(_unpack_data, _unpack_length);
@@ -957,7 +957,7 @@ unpack_object() {
  * parse error.
  */
 bool DCPacker::
-parse_and_pack(const string &formatted_object) {
+parse_and_pack(const std::string &formatted_object) {
   istringstream strm(formatted_object);
   return parse_and_pack(strm);
 }
@@ -997,7 +997,7 @@ unpack_and_format(bool show_field_names) {
  * in the dc file (e.g.  as a default value), or as an input to parse_object.
  */
 void DCPacker::
-unpack_and_format(ostream &out, bool show_field_names) {
+unpack_and_format(std::ostream &out, bool show_field_names) {
   DCPackType pack_type = get_pack_type();
 
   if (show_field_names && !get_current_field_name().empty()) {
@@ -1094,7 +1094,7 @@ unpack_and_format(ostream &out, bool show_field_names) {
  * Outputs the indicated string within quotation marks.
  */
 void DCPacker::
-enquote_string(ostream &out, char quote_mark, const string &str) {
+enquote_string(std::ostream &out, char quote_mark, const std::string &str) {
   out << quote_mark;
   for (string::const_iterator pi = str.begin();
        pi != str.end();
@@ -1118,7 +1118,7 @@ enquote_string(ostream &out, char quote_mark, const string &str) {
  * Outputs the indicated string as a hex constant.
  */
 void DCPacker::
-output_hex_string(ostream &out, const vector_uchar &str) {
+output_hex_string(std::ostream &out, const vector_uchar &str) {
   out << '<';
   for (vector_uchar::const_iterator pi = str.begin();
        pi != str.end();

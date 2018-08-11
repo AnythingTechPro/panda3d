@@ -37,7 +37,7 @@ class HashGenerator;
 class DCField : public DCPackerInterface, public DCKeywordList {
 public:
   DCField();
-  DCField(const string &name, DCClass *dclass);
+  DCField(const std::string &name, DCClass *dclass);
   virtual ~DCField();
 
 PUBLISHED:
@@ -53,8 +53,8 @@ PUBLISHED:
   virtual DCParameter *as_parameter();
   virtual const DCParameter *as_parameter() const;
 
-  string format_data(const vector_uchar &packed_data, bool show_field_names = true);
-  vector_uchar parse_string(const string &formatted_string);
+  std::string format_data(const vector_uchar &packed_data, bool show_field_names = true);
+  vector_uchar parse_string(const std::string &formatted_string);
 
   bool validate_ranges(const vector_uchar &packed_data) const;
 
@@ -73,8 +73,8 @@ PUBLISHED:
   INLINE bool is_ownrecv() const;
   INLINE bool is_airecv() const;
 
-  INLINE void output(ostream &out) const;
-  INLINE void write(ostream &out, int indent_level) const;
+  INLINE void output(std::ostream &out) const;
+  INLINE void write(std::ostream &out, int indent_level) const;
 
 #ifdef HAVE_PYTHON
   bool pack_args(DCPacker &packer, PyObject *sequence) const;
@@ -90,18 +90,18 @@ PUBLISHED:
 #endif
 
 public:
-  virtual void output(ostream &out, bool brief) const=0;
-  virtual void write(ostream &out, bool brief, int indent_level) const=0;
+  virtual void output(std::ostream &out, bool brief) const=0;
+  virtual void write(std::ostream &out, bool brief, int indent_level) const=0;
   virtual void generate_hash(HashGenerator &hashgen) const;
   virtual bool pack_default_value(DCPackData &pack_data, bool &pack_error) const;
-  virtual void set_name(const string &name);
+  virtual void set_name(const std::string &name);
 
   INLINE void set_number(int number);
   INLINE void set_class(DCClass *dclass);
   INLINE void set_default_value(vector_uchar default_value);
 
 #ifdef HAVE_PYTHON
-  static string get_pystr(PyObject *value);
+  static std::string get_pystr(PyObject *value);
 #endif
 
 protected:
@@ -122,7 +122,7 @@ private:
 #endif
 };
 
-INLINE ostream &operator << (ostream &out, const DCField &field) {
+INLINE std::ostream &operator << (std::ostream &out, const DCField &field) {
   field.output(out);
   return out;
 }

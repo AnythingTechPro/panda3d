@@ -26,7 +26,7 @@ using std::string;
  * via delete when the switch destructs.
  */
 DCSwitch::
-DCSwitch(const string &name, DCField *key_parameter) :
+DCSwitch(const std::string &name, DCField *key_parameter) :
   _name(name),
   _key_parameter(key_parameter)
 {
@@ -80,7 +80,7 @@ as_switch() const {
 /**
  * Returns the name of this switch.
  */
-const string &DCSwitch::
+const std::string &DCSwitch::
 get_name() const {
   return _name;
 }
@@ -170,7 +170,7 @@ get_field(int case_index, int n) const {
  * no field has this name.
  */
 DCField *DCSwitch::
-get_field_by_name(int case_index, const string &name) const {
+get_field_by_name(int case_index, const std::string &name) const {
   nassertr(case_index >= 0 && case_index < (int)_cases.size(), nullptr);
 
   const FieldsByName &fields_by_name = _cases[case_index]->_fields->_fields_by_name;
@@ -302,7 +302,7 @@ apply_switch(const char *value_data, size_t length) const {
  * Write a string representation of this instance to <out>.
  */
 void DCSwitch::
-output(ostream &out, bool brief) const {
+output(std::ostream &out, bool brief) const {
   output_instance(out, brief, "", "", "");
 }
 
@@ -311,7 +311,7 @@ output(ostream &out, bool brief) const {
  * stream.
  */
 void DCSwitch::
-write(ostream &out, bool brief, int indent_level) const {
+write(std::ostream &out, bool brief, int indent_level) const {
   write_instance(out, brief, indent_level, "", "", "");
 }
 
@@ -320,8 +320,8 @@ write(ostream &out, bool brief, int indent_level) const {
  * stream.
  */
 void DCSwitch::
-output_instance(ostream &out, bool brief, const string &prename,
-                const string &name, const string &postname) const {
+output_instance(std::ostream &out, bool brief, const std::string &prename,
+                const std::string &name, const std::string &postname) const {
   out << "switch";
   if (!_name.empty()) {
     out << " " << _name;
@@ -364,9 +364,9 @@ output_instance(ostream &out, bool brief, const string &prename,
  * stream.
  */
 void DCSwitch::
-write_instance(ostream &out, bool brief, int indent_level,
-               const string &prename, const string &name,
-               const string &postname) const {
+write_instance(std::ostream &out, bool brief, int indent_level,
+               const std::string &prename, const std::string &name,
+               const std::string &postname) const {
   indent(out, indent_level)
     << "switch";
   if (!_name.empty()) {
@@ -560,7 +560,7 @@ start_new_case() {
  *
  */
 DCSwitch::SwitchFields::
-SwitchFields(const string &name) :
+SwitchFields(const std::string &name) :
   DCPackerInterface(name)
 {
   _has_nested_fields = true;
@@ -655,7 +655,7 @@ do_check_match_switch_case(const DCSwitch::SwitchFields *other) const {
  *
  */
 void DCSwitch::SwitchFields::
-output(ostream &out, bool brief) const {
+output(std::ostream &out, bool brief) const {
   Fields::const_iterator fi;
   if (!_fields.empty()) {
     fi = _fields.begin();
@@ -673,7 +673,7 @@ output(ostream &out, bool brief) const {
  *
  */
 void DCSwitch::SwitchFields::
-write(ostream &out, bool brief, int indent_level) const {
+write(std::ostream &out, bool brief, int indent_level) const {
   Fields::const_iterator fi;
   if (!_fields.empty()) {
     fi = _fields.begin();

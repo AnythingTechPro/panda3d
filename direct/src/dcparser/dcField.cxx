@@ -58,7 +58,7 @@ DCField() :
  *
  */
 DCField::
-DCField(const string &name, DCClass *dclass) :
+DCField(const std::string &name, DCClass *dclass) :
   DCPackerInterface(name),
   _dclass(dclass)
 #ifdef WITHIN_PANDA
@@ -161,14 +161,14 @@ as_parameter() const {
  * string formatting it for human consumption.  Returns empty string if there
  * is an error.
  */
-string DCField::
+std::string DCField::
 format_data(const vector_uchar &packed_data, bool show_field_names) {
   DCPacker packer;
   packer.set_unpack_data(packed_data);
   packer.begin_unpack(this);
-  string result = packer.unpack_and_format(show_field_names);
+  std::string result = packer.unpack_and_format(show_field_names);
   if (!packer.end_unpack()) {
-    return string();
+    return std::string();
   }
   return result;
 }
@@ -179,7 +179,7 @@ format_data(const vector_uchar &packed_data, bool show_field_names) {
  * the corresponding packed data.  Returns empty string if there is an error.
  */
 vector_uchar DCField::
-parse_string(const string &formatted_string) {
+parse_string(const std::string &formatted_string) {
   DCPacker packer;
   packer.begin_pack(this);
   if (!packer.parse_and_pack(formatted_string)) {
@@ -273,7 +273,7 @@ pack_args(DCPacker &packer, PyObject *sequence) const {
       }
     }
 
-    string message = strm.str();
+    std::string message = strm.str();
     PyErr_SetString(exc_type, message.c_str());
   }
   return false;
@@ -326,7 +326,7 @@ unpack_args(DCPacker &packer) const {
       exc_type = PyExc_ValueError;
     }
 
-    string message = strm.str();
+    std::string message = strm.str();
     PyErr_SetString(exc_type, message.c_str());
   }
 
@@ -499,7 +499,7 @@ pack_default_value(DCPackData &pack_data, bool &) const {
  * Sets the name of this field.
  */
 void DCField::
-set_name(const string &name) {
+set_name(const std::string &name) {
   DCPackerInterface::set_name(name);
   if (_dclass != nullptr) {
     _dclass->_dc_file->mark_inherited_fields_stale();
@@ -510,7 +510,7 @@ set_name(const string &name) {
 /**
  * Returns the string representation of the indicated Python object.
  */
-string DCField::
+std::string DCField::
 get_pystr(PyObject *value) {
   if (value == nullptr) {
     return "(null)";
@@ -519,9 +519,9 @@ get_pystr(PyObject *value) {
   PyObject *str = PyObject_Str(value);
   if (str != nullptr) {
 #if PY_MAJOR_VERSION >= 3
-    string result = PyUnicode_AsUTF8(str);
+    std::string result = PyUnicode_AsUTF8(str);
 #else
-    string result = PyString_AsString(str);
+    std::string result = PyString_AsString(str);
 #endif
     Py_DECREF(str);
     return result;
@@ -530,9 +530,9 @@ get_pystr(PyObject *value) {
   PyObject *repr = PyObject_Repr(value);
   if (repr != nullptr) {
 #if PY_MAJOR_VERSION >= 3
-    string result = PyUnicode_AsUTF8(repr);
+    std::string result = PyUnicode_AsUTF8(repr);
 #else
-    string result = PyString_AsString(repr);
+    std::string result = PyString_AsString(repr);
 #endif
     Py_DECREF(repr);
     return result;
@@ -542,9 +542,9 @@ get_pystr(PyObject *value) {
     PyObject *typestr = PyObject_Str((PyObject *)(value->ob_type));
     if (typestr != nullptr) {
 #if PY_MAJOR_VERSION >= 3
-      string result = PyUnicode_AsUTF8(typestr);
+      std::string result = PyUnicode_AsUTF8(typestr);
 #else
-      string result = PyString_AsString(typestr);
+      std::string result = PyString_AsString(typestr);
 #endif
       Py_DECREF(typestr);
       return result;

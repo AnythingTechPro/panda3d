@@ -118,13 +118,13 @@ static DCField *parameter_description = (DCField *)NULL;
 ////////////////////////////////////////////////////////////////////
 
 void
-dc_init_parser(istream &in, const string &filename, DCFile &file) {
+dc_init_parser(istream &in, const std::string &filename, DCFile &file) {
   dc_file = &file;
   dc_init_lexer(in, filename);
 }
 
 void
-dc_init_parser_parameter_value(istream &in, const string &filename,
+dc_init_parser_parameter_value(istream &in, const std::string &filename,
                                DCPacker &packer) {
   dc_file = NULL;
   current_packer = &packer;
@@ -133,7 +133,7 @@ dc_init_parser_parameter_value(istream &in, const string &filename,
 }
 
 void
-dc_init_parser_parameter_description(istream &in, const string &filename,
+dc_init_parser_parameter_description(istream &in, const std::string &filename,
                                      DCFile *file) {
   dc_file = file;
   dc_init_lexer(in, filename);

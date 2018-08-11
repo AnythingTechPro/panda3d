@@ -23,7 +23,7 @@ using std::string;
  *
  */
 DCPackerInterface::
-DCPackerInterface(const string &name) :
+DCPackerInterface(const std::string &name) :
   _name(name)
 {
   _has_fixed_byte_size = false;
@@ -76,7 +76,7 @@ DCPackerInterface::
  * seek for the field by name.
  */
 int DCPackerInterface::
-find_seek_index(const string &name) const {
+find_seek_index(const std::string &name) const {
   return get_catalog()->find_entry_by_name(name);
 }
 
@@ -138,7 +138,7 @@ as_class_parameter() const {
  * description string.
  */
 bool DCPackerInterface::
-check_match(const string &description, DCFile *dcfile) const {
+check_match(const std::string &description, DCFile *dcfile) const {
   bool match = false;
 
   std::istringstream strm(description);
@@ -164,7 +164,7 @@ check_match(const string &description, DCFile *dcfile) const {
  * Sets the name of this field.
  */
 void DCPackerInterface::
-set_name(const string &name) {
+set_name(const std::string &name) {
   _name = name;
 }
 
@@ -244,7 +244,7 @@ pack_uint64(DCPackData &, uint64_t, bool &pack_error, bool &) const {
  * Packs the indicated numeric or string value into the stream.
  */
 void DCPackerInterface::
-pack_string(DCPackData &, const string &, bool &pack_error, bool &) const {
+pack_string(DCPackData &, const std::string &, bool &pack_error, bool &) const {
   pack_error = true;
 }
 

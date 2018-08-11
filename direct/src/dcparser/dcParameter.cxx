@@ -161,7 +161,7 @@ append_array_specification(const DCUnsignedIntRange &size) {
  *
  */
 void DCParameter::
-output(ostream &out, bool brief) const {
+output(std::ostream &out, bool brief) const {
   string name;
   if (!brief) {
     name = get_name();
@@ -173,7 +173,7 @@ output(ostream &out, bool brief) const {
  *
  */
 void DCParameter::
-write(ostream &out, bool brief, int indent_level) const {
+write(std::ostream &out, bool brief, int indent_level) const {
   // we must always output the name when the parameter occurs by itself within
   // a class, so we pass get_name() even if brief is true.
   write_instance(out, brief, indent_level, "", get_name(), "");
@@ -184,9 +184,9 @@ write(ostream &out, bool brief, int indent_level) const {
  * identifier.
  */
 void DCParameter::
-write_instance(ostream &out, bool brief, int indent_level,
-               const string &prename, const string &name,
-               const string &postname) const {
+write_instance(std::ostream &out, bool brief, int indent_level,
+               const std::string &prename, const std::string &name,
+               const std::string &postname) const {
   indent(out, indent_level);
   output_instance(out, brief, prename, name, postname);
   output_keywords(out);
@@ -202,8 +202,8 @@ write_instance(ostream &out, bool brief, int indent_level,
  * instead.
  */
 void DCParameter::
-output_typedef_name(ostream &out, bool, const string &prename,
-                    const string &name, const string &postname) const {
+output_typedef_name(std::ostream &out, bool, const std::string &prename,
+                    const std::string &name, const std::string &postname) const {
   out << get_typedef()->get_name();
   if (!prename.empty() || !name.empty() || !postname.empty()) {
     out << " " << prename << name << postname;
@@ -215,9 +215,9 @@ output_typedef_name(ostream &out, bool, const string &prename,
  * instead.
  */
 void DCParameter::
-write_typedef_name(ostream &out, bool brief, int indent_level,
-                   const string &prename, const string &name,
-                   const string &postname) const {
+write_typedef_name(std::ostream &out, bool brief, int indent_level,
+                   const std::string &prename, const std::string &name,
+                   const std::string &postname) const {
   indent(out, indent_level)
     << get_typedef()->get_name();
   if (!prename.empty() || !name.empty() || !postname.empty()) {

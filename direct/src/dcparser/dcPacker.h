@@ -53,7 +53,7 @@ PUBLISHED:
   void begin_repack(const DCPackerInterface *root);
   bool end_repack();
 
-  bool seek(const string &field_name);
+  bool seek(const std::string &field_name);
   bool seek(int seek_index);
 
   INLINE bool has_nested_fields() const;
@@ -64,7 +64,7 @@ PUBLISHED:
   INLINE const DCPackerInterface *get_current_field() const;
   INLINE const DCSwitchParameter *get_last_switch() const;
   INLINE DCPackType get_pack_type() const;
-  INLINE string get_current_field_name() const;
+  INLINE std::string get_current_field_name() const;
 
   void push();
   void pop();
@@ -74,7 +74,7 @@ PUBLISHED:
   INLINE void pack_uint(unsigned int value);
   INLINE void pack_int64(int64_t value);
   INLINE void pack_uint64(uint64_t value);
-  INLINE void pack_string(const string &value);
+  INLINE void pack_string(const std::string &value);
   INLINE void pack_blob(const vector_uchar &value);
   INLINE void pack_literal_value(const vector_uchar &value);
   void pack_default_value();
@@ -84,7 +84,7 @@ PUBLISHED:
   INLINE unsigned int unpack_uint();
   INLINE int64_t unpack_int64();
   INLINE uint64_t unpack_uint64();
-  INLINE string unpack_string();
+  INLINE std::string unpack_string();
   INLINE vector_uchar unpack_blob();
   INLINE vector_uchar unpack_literal_value();
   void unpack_validate();
@@ -98,7 +98,7 @@ public:
   INLINE void unpack_uint(unsigned int &value);
   INLINE void unpack_int64(int64_t &value);
   INLINE void unpack_uint64(uint64_t &value);
-  INLINE void unpack_string(string &value);
+  INLINE void unpack_string(std::string &value);
   INLINE void unpack_blob(vector_uchar &value);
   INLINE void unpack_literal_value(vector_uchar &value);
 
@@ -109,10 +109,10 @@ PUBLISHED:
   PyObject *unpack_object();
 #endif
 
-  bool parse_and_pack(const string &formatted_object);
-  bool parse_and_pack(istream &in);
-  string unpack_and_format(bool show_field_names = true);
-  void unpack_and_format(ostream &out, bool show_field_names = true);
+  bool parse_and_pack(const std::string &formatted_object);
+  bool parse_and_pack(std::istream &in);
+  std::string unpack_and_format(bool show_field_names = true);
+  void unpack_and_format(std::ostream &out, bool show_field_names = true);
 
   INLINE bool had_parse_error() const;
   INLINE bool had_pack_error() const;
@@ -121,12 +121,12 @@ PUBLISHED:
   INLINE size_t get_num_unpacked_bytes() const;
 
   INLINE size_t get_length() const;
-  INLINE string get_string() const;
+  INLINE std::string get_string() const;
   INLINE vector_uchar get_bytes() const;
   INLINE size_t get_unpack_length() const;
-  INLINE string get_unpack_string() const;
+  INLINE std::string get_unpack_string() const;
 public:
-  INLINE void get_string(string &data) const;
+  INLINE void get_string(std::string &data) const;
   INLINE const char *get_data() const;
   INLINE char *take_data();
 
@@ -151,7 +151,7 @@ PUBLISHED:
   INLINE void raw_pack_uint32(unsigned int value);
   INLINE void raw_pack_uint64(uint64_t value);
   INLINE void raw_pack_float64(double value);
-  INLINE void raw_pack_string(const string &value);
+  INLINE void raw_pack_string(const std::string &value);
   INLINE void raw_pack_blob(const vector_uchar &value);
 
 // this is a hack to allw me to get in and out of 32bit Mode Faster need to
@@ -169,7 +169,7 @@ PUBLISHED:
   INLINE unsigned int raw_unpack_uint32();
   INLINE uint64_t raw_unpack_uint64();
   INLINE double raw_unpack_float64();
-  INLINE string raw_unpack_string();
+  INLINE std::string raw_unpack_string();
   INLINE vector_uchar raw_unpack_blob();
 
 public:
@@ -182,12 +182,12 @@ public:
   INLINE void raw_unpack_uint32(unsigned int &value);
   INLINE void raw_unpack_uint64(uint64_t &value);
   INLINE void raw_unpack_float64(double &value);
-  INLINE void raw_unpack_string(string &value);
+  INLINE void raw_unpack_string(std::string &value);
   INLINE void raw_unpack_blob(vector_uchar &value);
 
 public:
-  static void enquote_string(ostream &out, char quote_mark, const string &str);
-  static void output_hex_string(ostream &out, const vector_uchar &str);
+  static void enquote_string(std::ostream &out, char quote_mark, const std::string &str);
+  static void output_hex_string(std::ostream &out, const vector_uchar &str);
 
 private:
   INLINE void advance();

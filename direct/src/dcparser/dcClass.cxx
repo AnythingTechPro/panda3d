@@ -73,7 +73,7 @@ public:
  *
  */
 DCClass::
-DCClass(DCFile *dc_file, const string &name, bool is_struct, bool bogus_class) :
+DCClass(DCFile *dc_file, const std::string &name, bool is_struct, bool bogus_class) :
 #ifdef WITHIN_PANDA
   _class_update_pcollector(_update_pcollector, name),
   _class_generate_pcollector(_generate_pcollector, name),
@@ -198,7 +198,7 @@ get_field(int n) const {
  * class.  Returns NULL if there is no such field defined.
  */
 DCField *DCClass::
-get_field_by_name(const string &name) const {
+get_field_by_name(const std::string &name) const {
   FieldsByName::const_iterator ni;
   ni = _fields_by_name.find(name);
   if (ni != _fields_by_name.end()) {
@@ -335,7 +335,7 @@ inherits_from_bogus_class() const {
  * Write a string representation of this instance to <out>.
  */
 void DCClass::
-output(ostream &out) const {
+output(std::ostream &out) const {
   if (_is_struct) {
     out << "struct";
   } else {
@@ -586,7 +586,7 @@ receive_update_other(PyObject *distobj, DatagramIterator &di) const {
  * Processes an update for a named field from a packed value blob.
  */
 void DCClass::
-direct_update(PyObject *distobj, const string &field_name,
+direct_update(PyObject *distobj, const std::string &field_name,
               const vector_uchar &value_blob) {
   DCField *field = get_field_by_name(field_name);
   nassertv_always(field != nullptr);
@@ -604,7 +604,7 @@ direct_update(PyObject *distobj, const string &field_name,
  * Processes an update for a named field from a packed datagram.
  */
 void DCClass::
-direct_update(PyObject *distobj, const string &field_name,
+direct_update(PyObject *distobj, const std::string &field_name,
               const Datagram &datagram) {
   DCField *field = get_field_by_name(field_name);
   nassertv_always(field != NULL);
@@ -797,7 +797,7 @@ pack_required_field(DCPacker &packer, PyObject *distobj,
  * the indicated distributed object from the client.
  */
 Datagram DCClass::
-client_format_update(const string &field_name, DOID_TYPE do_id,
+client_format_update(const std::string &field_name, DOID_TYPE do_id,
                      PyObject *args) const {
   DCField *field = get_field_by_name(field_name);
   if (field == nullptr) {
@@ -818,7 +818,7 @@ client_format_update(const string &field_name, DOID_TYPE do_id,
  * the indicated distributed object from the AI.
  */
 Datagram DCClass::
-ai_format_update(const string &field_name, DOID_TYPE do_id,
+ai_format_update(const std::string &field_name, DOID_TYPE do_id,
                  CHANNEL_TYPE to_id, CHANNEL_TYPE from_id, PyObject *args) const {
   DCField *field = get_field_by_name(field_name);
   if (field == nullptr) {
@@ -840,7 +840,7 @@ ai_format_update(const string &field_name, DOID_TYPE do_id,
  * AI.
  */
 Datagram DCClass::
-ai_format_update_msg_type(const string &field_name, DOID_TYPE do_id,
+ai_format_update_msg_type(const std::string &field_name, DOID_TYPE do_id,
                  CHANNEL_TYPE to_id, CHANNEL_TYPE from_id, int msg_type, PyObject *args) const {
   DCField *field = get_field_by_name(field_name);
   if (field == nullptr) {
@@ -1017,7 +1017,7 @@ ai_format_generate(PyObject *distobj, DOID_TYPE do_id,
  * Write a string representation of this instance to <out>.
  */
 void DCClass::
-output(ostream &out, bool brief) const {
+output(std::ostream &out, bool brief) const {
   output_instance(out, brief, "", "", "");
 }
 
@@ -1026,7 +1026,7 @@ output(ostream &out, bool brief) const {
  * stream.
  */
 void DCClass::
-write(ostream &out, bool brief, int indent_level) const {
+write(std::ostream &out, bool brief, int indent_level) const {
   indent(out, indent_level);
   if (_is_struct) {
     out << "struct";
@@ -1086,8 +1086,8 @@ write(ostream &out, bool brief, int indent_level) const {
  * stream.
  */
 void DCClass::
-output_instance(ostream &out, bool brief, const string &prename,
-                const string &name, const string &postname) const {
+output_instance(std::ostream &out, bool brief, const std::string &prename,
+                const std::string &name, const std::string &postname) const {
   if (_is_struct) {
     out << "struct";
   } else {
@@ -1236,7 +1236,7 @@ rebuild_inherited_fields() {
  * adding a new definition below.
  */
 void DCClass::
-shadow_inherited_field(const string &name) {
+shadow_inherited_field(const std::string &name) {
   Fields::iterator fi;
   for (fi = _inherited_fields.begin(); fi != _inherited_fields.end(); ++fi) {
     DCField *field = (*fi);

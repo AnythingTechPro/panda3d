@@ -123,10 +123,10 @@ get_pack_type() const {
  * Returns the name of the current field, if it has a name, or the empty
  * string if the field does not have a name or there is no current field.
  */
-INLINE string DCPacker::
+INLINE std::string DCPacker::
 get_current_field_name() const {
   if (_current_field == NULL) {
-    return string();
+    return std::string();
   } else {
     return _current_field->get_name();
   }
@@ -206,7 +206,7 @@ pack_uint64(uint64_t value) {
  * Packs the indicated numeric or string value into the stream.
  */
 INLINE void DCPacker::
-pack_string(const string &value) {
+pack_string(const std::string &value) {
   nassertv(_mode == M_pack || _mode == M_repack);
   if (_current_field == NULL) {
     _pack_error = true;
@@ -343,9 +343,9 @@ unpack_uint64() {
 /**
  * Unpacks the current numeric or string value from the stream.
  */
-INLINE string DCPacker::
+INLINE std::string DCPacker::
 unpack_string() {
-  string value;
+  std::string value;
   nassertr(_mode == M_unpack, value);
   if (_current_field == NULL) {
     _pack_error = true;
@@ -475,7 +475,7 @@ unpack_uint64(uint64_t &value) {
  * Unpacks the current numeric or string value from the stream.
  */
 INLINE void DCPacker::
-unpack_string(string &value) {
+unpack_string(std::string &value) {
   nassertv(_mode == M_unpack);
   if (_current_field == NULL) {
     _pack_error = true;
@@ -587,7 +587,7 @@ get_length() const {
 /**
  * Returns the packed data buffer as a string.  Also see get_data().
  */
-INLINE string DCPacker::
+INLINE std::string DCPacker::
 get_string() const {
   return _pack_data.get_string();
 }
@@ -616,16 +616,16 @@ get_unpack_length() const {
  * unpacking; it is separate from the pack data returned by get_string(),
  * which is filled during packing.  Also see get_unpack_data().
  */
-INLINE string DCPacker::
+INLINE std::string DCPacker::
 get_unpack_string() const {
-  return string(_unpack_data, _unpack_length);
+  return std::string(_unpack_data, _unpack_length);
 }
 
 /**
  * Copies the packed data into the indicated string.  Also see get_data().
  */
 INLINE void DCPacker::
-get_string(string &data) const {
+get_string(std::string &data) const {
   data.assign(_pack_data.get_data(), _pack_data.get_length());
 }
 
@@ -782,7 +782,7 @@ raw_pack_float64(double value) {
  * Packs the data into the buffer between packing sessions.
  */
 INLINE void DCPacker::
-raw_pack_string(const string &value) {
+raw_pack_string(const std::string &value) {
   nassertv(_mode == M_idle);
   DCPackerInterface::do_pack_uint16(_pack_data.get_write_pointer(2), value.length());
   _pack_data.append_data(value.data(), value.length());
@@ -933,9 +933,9 @@ raw_unpack_float64() {
 /**
  * Unpacks the data from the buffer between unpacking sessions.
  */
-INLINE string DCPacker::
+INLINE std::string DCPacker::
 raw_unpack_string() {
-  string value;
+  std::string value;
   raw_unpack_string(value);
   return value;
 }
@@ -1038,7 +1038,7 @@ raw_unpack_float64(double &value) {
  * Unpacks the data from the buffer between unpacking sessions.
  */
 INLINE void DCPacker::
-raw_unpack_string(string &value) {
+raw_unpack_string(std::string &value) {
   nassertv(_mode == M_idle && _unpack_data != NULL);
   unsigned int string_length = raw_unpack_uint16();
 
