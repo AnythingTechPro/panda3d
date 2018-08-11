@@ -46,14 +46,18 @@ public:
   virtual DCPackerInterface *get_nested_field(int n) const;
   virtual bool validate_num_nested_fields(int num_nested_fields) const;
 
-  virtual void output_instance(std::ostream &out, bool brief, const std::string &prename,
-                               const std::string &name, const std::string &postname) const;
+  virtual void output_instance(ostream &out, bool brief, const string &prename,
+                               const string &name, const string &postname) const;
   virtual void generate_hash(HashGenerator &hashgen) const;
-  virtual void pack_string(DCPackData &pack_data, const std::string &value,
+  virtual void pack_string(DCPackData &pack_data, const string &value,
                            bool &pack_error, bool &range_error) const;
+  virtual void pack_blob(DCPackData &pack_data, const vector_uchar &value,
+                         bool &pack_error, bool &range_error) const;
   virtual bool pack_default_value(DCPackData &pack_data, bool &pack_error) const;
   virtual void unpack_string(const char *data, size_t length, size_t &p,
-                             std::string &value, bool &pack_error, bool &range_error) const;
+                             string &value, bool &pack_error, bool &range_error) const;
+  virtual void unpack_blob(const char *data, size_t length, size_t &p,
+                           vector_uchar &value, bool &pack_error, bool &range_error) const;
 
 protected:
   virtual bool do_check_match(const DCPackerInterface *other) const;

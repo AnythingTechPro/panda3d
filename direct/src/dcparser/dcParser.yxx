@@ -89,7 +89,8 @@ dc_cleanup_parser() {
 %token <u.uint64> UNSIGNED_INTEGER
 %token <u.int64> SIGNED_INTEGER
 %token <u.real> REAL
-%token <str> STRING HEX_STRING IDENTIFIER
+%token <str> STRING IDENTIFIER
+%token <bytes> HEX_STRING
 %token <u.keyword> KEYWORD
 
 %token KW_DCLASS 
@@ -553,7 +554,7 @@ named_parameter_with_default:
     is_valid = $1->is_valid();
   }
   if (current_packer->end_pack()) {
-    $1->set_default_value(current_packer->get_string());
+    $1->set_default_value(current_packer->get_bytes());
 
   } else {
     if (is_valid) {
@@ -583,7 +584,7 @@ unnamed_parameter_with_default:
     is_valid = $1->is_valid();
   }
   if (current_packer->end_pack()) {
-    $1->set_default_value(current_packer->get_string());
+    $1->set_default_value(current_packer->get_bytes());
 
   } else {
     if (is_valid) {
@@ -1283,7 +1284,7 @@ switch_case:
     yyerror("Invalid value for switch parameter");
     current_switch->add_invalid_case();
   } else {
-    int case_index = current_switch->add_case(current_packer->get_string());
+    int case_index = current_switch->add_case(current_packer->get_bytes());
     if (case_index == -1) {
       yyerror("Duplicate case value");
     }
