@@ -143,7 +143,7 @@ class ControlManager:
     def delete(self):
         assert self.notify.debugCall(id(self))
         self.disable()
-        for controls in self.controls.keys():
+        for controls in list(self.controls.keys()):
             self.remove(controls)
         del self.controls
         del self.currentControls
@@ -342,4 +342,3 @@ class ControlManager:
 
             inputState.set("turnLeft", False, inputSource=inputState.WASD)
             inputState.set("turnRight", False, inputSource=inputState.WASD)
-
